@@ -1,27 +1,32 @@
 const express = require("express");
 const cors = require("cors");
-const pool = require("./db");
+const productsRoutes = require("./routes/products");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
+// ✅ Allow Vercel frontend
 app.use(cors({
   origin: [
-    "http://localhost:5173",
-    "https://your-frontend.vercel.app"
+    "https://inventory-optimization-frontend.vercel.app",
+    "http://localhost:5173"
   ]
 }));
 
 app.use(express.json());
 
-/* 🔴 Routes */
-app.use("/api/products", require("./routes/products"));
-app.use("/api/inventory", require("./routes/inventory"));
+// Routes
+app.use("/api/products", productsRoutes);
 
-/* 🔴 Start server (ONLY ONCE) */
+// Health check (optional but recommended)
+app.get("/", (req, res) => {
+  res.send("Inventory Optimization API is running");
+});
+
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Inventory API listening on port ${PORT}`);
 });
+
 
 /* 🔴 DB connection test */
 pool.query("SELECT NOW()", (err, res) => {
