@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import productsRoutes from "./routes/products.js";
-// import inventoryRoutes from "./routes/inventory.js"; // optional later
+import inventoryRoutes from "./routes/inventory.js"; 
 
 const app = express();
 
@@ -26,7 +26,7 @@ app.use(express.json());
  * Routes
  */
 app.use("/api/products", productsRoutes);
-// app.use("/api/inventory", inventoryRoutes); // optional later
+app.use("/api/inventory", inventoryRoutes); 
 
 /**
  * Health check (IMPORTANT)
