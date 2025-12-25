@@ -3,24 +3,15 @@ const cors = require("cors");
 const pool = require("./db");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-/* 🔴 Disable ETag to avoid 304 + CORS issues */
-app.disable("etag");
-
-/* 🔴 Middleware FIRST */
 app.use(cors({
-<<<<<<< HEAD
-  origin: "http://localhost:5173"
-}));
-=======
   origin: [
     "http://localhost:5173",
-    "https://inventory-optimization-frontend.vercel.app"
+    "https://your-frontend.vercel.app"
   ]
 }));
 
->>>>>>> 1aa2b57 (Initial backend setup)
 app.use(express.json());
 
 /* 🔴 Routes */
